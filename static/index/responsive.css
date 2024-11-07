@@ -12,6 +12,10 @@ input[type="submit"], button {
         margin-right: 0;
     }
 
+    .restaurante {
+        flex-direction: column;
+    }
+
     .divider {
         width: 100%;
     }
@@ -29,6 +33,7 @@ input[type="submit"], button {
     .box-nome {
         width: 120%;
         text-wrap: wrap;
+        margin-bottom: 5px;
     }
 
     img {
@@ -37,6 +42,7 @@ input[type="submit"], button {
 
     .box-info {
         width: 120%;
+        margin-left: 0;
     }
 
 

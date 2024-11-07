@@ -1,43 +1,30 @@
 'use strict';
 {
     function setTheme(mode) {
-        if (mode !== "light" && mode !== "dark" && mode !== "auto") {
+        if (mode !== "light" && mode !== "dark") {
             console.error(`Got invalid theme mode: ${mode}. Resetting to auto.`);
-            mode = "auto";
+            mode = "dark";
         }
         document.documentElement.dataset.theme = mode;
         localStorage.setItem("theme", mode);
     }
 
     function cycleTheme() {
-        const currentTheme = localStorage.getItem("theme") || "auto";
+        const currentTheme = localStorage.getItem("theme") || "dark";
         const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-        if (prefersDark) {
-            // Auto (dark) -> Light -> Dark
-            if (currentTheme === "auto") {
-                setTheme("light");
-            } else if (currentTheme === "light") {
-                setTheme("dark");
-            } else {
-                setTheme("auto");
-            }
-        } else {
-            // Auto (light) -> Dark -> Light
-            if (currentTheme === "auto") {
-                setTheme("dark");
-            } else if (currentTheme === "dark") {
-                setTheme("light");
-            } else {
-                setTheme("auto");
-            }
+        // Auto (light) -> Dark -> Light
+        if (currentTheme === "light") {
+             setTheme("dark");
+        } else if (currentTheme === "dark") {
+            setTheme("light");
         }
     }
 
     function initTheme() {
-        // set theme defined in localStorage if there is one, or fallback to auto mode
+        // set theme defined in localStorage if there is one, or fallback to dark mode
         const currentTheme = localStorage.getItem("theme");
-        currentTheme ? setTheme(currentTheme) : setTheme("auto");
+        currentTheme ? setTheme(currentTheme) : setTheme("dark");
     }
 
     window.addEventListener('load', function(_) {

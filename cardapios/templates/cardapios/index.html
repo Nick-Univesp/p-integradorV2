@@ -61,7 +61,7 @@
 						{% for restaurante in restaurante %}
 							{% if restaurante.UF == n %}
 								<div class="restaurante">
-									{% if restaurante.image != Null %}
+									{% if restaurante.imagem != Null %}
 										<img src="/media/{{ restaurante.imagem }}">
 									{% endif %}
 									<div class="item">
@@ -71,13 +71,9 @@
 										{% endif %}
 										<p class="box-price">
 											Endereço:
-											{{ restaurante.rua }}
+											{{ restaurante.rua }}, {{ restaurante.numero }} - {{ restaurante.bairro }}
+											{{ restaurante.cidade }}, {{ restaurante.UF }}
 										</p>
-										<div class="box-price">
-											{% for cardapio in LINKget %}
-												<p>{{ LINKget }}</p>
-											{% endfor %}
-										</div>
 									</div>
 								</div>
 								<div class="divider"></div>
