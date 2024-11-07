@@ -12,6 +12,8 @@
 		<link rel="stylesheet" href="../../../static/cardapios/responsive.css">
 	{% endblock %}
 
+	{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+
 <head>
     <meta charset="UTF-8">
     <title>{{ cardapio }}</title>
@@ -25,7 +27,7 @@
 		<!-- Header -->
 		<header>
 			<div>
-				<a href="../restaurantes#{{ LINKget }}"><p>{{ cardapio }}</p></a>
+				<p>{{ cardapio }}</p>
 			</div>
 			<button class="theme-toggle">
 				<span class="visually-hidden theme-label-when-light">Toggle theme (current theme: light)</span>
@@ -45,22 +47,28 @@
 			<nav class="sticky" id="nav-sidebar" aria-label="Sidebar">
 				<h3>Seções:</h3>
 				<ul>
-					{% for segmento in segmento.cardapio_set.all %}
+					{% for segmento in cardapio.segmento_set.all %}
 						<a href="#{{ segmento }}" class="fill"><li><p>{{ segmento }}</p></li></a>
 					{% endfor %}
 				</ul>
 			</nav>
 
 			<main id="content-start" class="content" tabindex="-1">
-				{% for segmento in segmento.cardapio_set.all %}
+				{% for segmento in cardapio.segmento_set.all %}
 					<div class="segmento" id="{{ segmento }}">
 						<div class="segmento-title"><p>{{ segmento }}</p></div>
-						{% for item in item.segmento_set.all %}
+						{% for item in segmento.item_set.all %}
 							<div class="item">
-								<p class="box-nome">{{ item.nome|default_if_none='' }}</p>
-								<img src="{{ item.imagem }}">
-								<p class="box-info">{{ item.info|default_if_none='' }}</p>
-								{% if item.price not Null %}
+								{% if item.nome != Null %}
+									<p class="box-nome">{{ item.nome }}</p>
+								{% endif %}
+								{% if item.imagem != Null %}
+									<img src="/media/{{ item.imagem }}">
+								{% endif %}
+								{% if item.info != Null %}
+									<p class="box-info">{{ item.info }}</p>
+								{% endif %}
+								{% if item.price != Null %}
 									<p class="box-price">R$ {{ item.price }}</p>
 								{% endif %}
 								<div class="divider"></div>

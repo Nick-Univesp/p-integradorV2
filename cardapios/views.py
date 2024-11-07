@@ -22,7 +22,7 @@ def index(request):
     return render(request, "cardapios/index.html", context)
     
 def cardapio(request, nome):
-    cardapio = get_object_or_404(Cardapio, nome)
+    cardapio = get_object_or_404(Cardapio, nome=nome)
     segmento = Segmento.objects.all()
     item = Item.objects.all()
     link = CardapioLink.objects.all()
@@ -34,7 +34,7 @@ def cardapio(request, nome):
         "link":link,
         "LINKget":LINKget,
     }
-    return render(request, "cardapios/cardapio.html, context")
+    return render(request, "cardapios/cardapio.html", context)
     
 def media(request, imagem):
     return FileResponse(open(os.path.join(MEDIA_ROOT, imagem), 'rb'))

@@ -8,10 +8,12 @@
 	<link rel="stylesheet" href="../../../static/index/nav_sidebar.css">
 	<script src="../../../static/index/nav_sidebar.js" defer></script>
 
-	<!--{% block responsive %}-->
+	{% block responsive %}
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="../../../static/index/responsive.css">
-	<!--{% endblock %}-->
+	{% endblock %}
+
+	{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
 
 <head>
     <meta charset="UTF-8">
@@ -26,7 +28,7 @@
 		<!-- Header -->
 		<header>
 			<div>
-				<a href="../restaurantes#{{ LINKget }}"><p>{{ cardapio }}</p></a>
+				<p>Nossos Clientes:</p>
 			</div>
 			<button class="theme-toggle">
 				<span class="visually-hidden theme-label-when-light">Toggle theme (current theme: light)</span>
@@ -56,13 +58,26 @@
 				{% for n in UFget %}
 					<div class="segmento" id="{{ n }}">
 						<div class="segmento-title"><p>{{ n }}</p></div>
-						{% for restaurante %}
+						{% for restaurante in restaurante %}
 							{% if restaurante.UF == n %}
-								<div class>
-									<img src="{{ restaurante.imagem }}">
+								<div class="restaurante">
+									{% if restaurante.image != Null %}
+										<img src="/media/{{ restaurante.imagem }}">
+									{% endif %}
 									<div class="item">
-										<p class="box-nome">{{ restaurante.nome|default_if_none='' }}</p>
-										<p class="box-info">{{ restaurante.info|default_if_none='' }}</p>
+										<p class="box-nome">{{ restaurante.nome | default_if_none:'' }}</p>
+										{% if restaurante.info != Null %}
+											<p class="box-info">{{ restaurante.info}}</p>
+										{% endif %}
+										<p class="box-price">
+											Endereço:
+											{{ restaurante.rua }}
+										</p>
+										<div class="box-price">
+											{% for cardapio in LINKget %}
+												<p>{{ LINKget }}</p>
+											{% endfor %}
+										</div>
 									</div>
 								</div>
 								<div class="divider"></div>
